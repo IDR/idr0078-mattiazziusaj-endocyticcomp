@@ -1,0 +1,5 @@
+---
+target: "Screen:name:idr0078-mattiazziusaj-endocyticcomp/screenA"
+include: "../bulk.yml"
+path: "idr0078-screenA-plates.tsv"
+
