@@ -64,6 +64,7 @@ def create_screen_companions():
     files = (glob.glob('screenA/companions/Sac6-tdTomato/10/*.flex') +
              glob.glob('screenA/companions/Sac6-tdTomato/10_2/*.flex'))
     flex_files = [f[len('screenA/companions/'):] for f in files]
+    logging.debug("Found %s files" % len(flex_files))
 
     wells = []
     for flex_file in flex_files:
@@ -72,8 +73,8 @@ def create_screen_companions():
 
     rows = max(wells)[0]
     columns = max(wells)[1]
+    logging.debug("Detected %s rows and %s columns" % (rows, columns))
     plate = Plate("10", rows, columns)
-    print(wells)
     for row, column, flex_file in wells:
         w = plate.add_well(row - 1, column - 1)
         for field in range(3):
