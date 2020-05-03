@@ -40,7 +40,6 @@ def parse_well(filename):
 
 
 def get_html_color(r, g, b):
-    import int
     return int.from_bytes((r, g, b, 255), byteorder='big', signed=True)
 
 
