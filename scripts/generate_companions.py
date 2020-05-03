@@ -1,26 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# Generate companion files for experimentA of the idr0065 study. This script
-# assumes the following layout for the original data:
-#
-#  <microscopic_slide>/        All data associated with a microscopic slide
-#    pheno/                    Phenotypic acquisition
-#      metadata.txt            Metadata for the phenotyping acquisition
-#      Pos101/                 Position on a microscopyic slide
-#        fluor/                Fluorescence timelapse images
-#        phase/                Phase timelapse images
-#    geno/                     Genotypic acqusition
-#      Pos101/                 Position on the microscopyic slide
-#        1_cy5_fluor/          Fluorescence acquisition (11 cycles)
-#        2_cy3_fluor/          Fluorescence acquisition (11 cycles)
-#        3_TxR_fluor/          Fluorescence acquisition (11 cycles)
-#        4_fam_flour/          Fluorescence acquisition (11 cycles)
-#        phase/                Phase acquisition (11 cycles)
+# Generate companion files for screenA of the idr0078 study.
 
 import argparse
 import logging
-
 from ome_model.experimental import Image, Plate, create_companion
 import os
 from os.path import join, dirname, basename
@@ -55,6 +39,11 @@ def parse_well(filename):
     return int(m.group('row')), int(m.group('column'))
 
 
+def get_html_color(r, g, b):
+    import int
+    return int.from_bytes((r, g, b, 255), byteorder='big', signed=True)
+
+
 def create_screen_companions():
     """Screen metadata files"""
 
@@ -78,14 +67,17 @@ def create_screen_companions():
     for row, column, flex_file in wells:
         w = plate.add_well(row - 1, column - 1)
         for field in range(3):
-            name = "%s%s Field %s" % (
-                string.ascii_uppercase[row - 1], column, field)
+            name = "Well %s%s Field %s" % (
+                string.ascii_uppercase[row - 1], column, field + 1)
             image = Image(
-                "Field. %g" % field, 1305, 879, 5, 3, 1,
-                order="XYZCT", type="uint16")
-            image.add_channel("GFP", -1)
-            image.add_channel("tdTomato", -1)
-            image.add_channel("Dextran", -1)
+                name, 1305, 879, 5, 3, 1,
+                order="XYCZT", type="uint16")
+            # Populate pixel size (in microns)
+            image.data['Pixels']['PhysicalSizeX'] = '0.1076'
+            image.data['Pixels']['PhysicalSizeY'] = '0.1076'
+            image.add_channel("Sla1-GFP", get_html_color(0, 255, 0))
+            image.add_channel("Sac6-tdTomato", get_html_color(255, 0, 0))
+            image.add_channel("Dextran", get_html_color(255, 255, 255))
             image.add_tiff(
                 flex_file, c=0, z=0, t=0, ifd=15*field, planeCount=15)
             w.add_wellsample(field, image)
