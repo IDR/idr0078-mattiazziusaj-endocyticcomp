@@ -5,59 +5,90 @@
 # MetadataOnly elements by TiffData elements
 
 
-import xml.etree.ElementTree as ElementTree
+import argparse
+import logging
 import re
-import uuid
 import string
+import subprocess
+import uuid
+import xml.etree.ElementTree as ElementTree
 
 
 NS = {'OME': "http://www.openmicroscopy.org/Schemas/OME/2016-06"}
 NAME_PATTERN = re.compile("Well ([A-Z])-(\d+); Field #(\d)")
 ElementTree.register_namespace("", NS['OME'])
 
-companion_file = 'screenA/companions/Sac6-tdTomato_1.companion.ome'
-tree = ElementTree.parse(companion_file)
-root = tree.getroot()
-well_uuids = {}
 
-for i in root.findall('OME:Image', NS):
-    name = i.attrib['Name']
-    # Parse the image name and retrieve row/column/field
-    m = NAME_PATTERN.match(name)
-    row = string.ascii_uppercase.index(m.group(1))
-    column = int(m.group(2)) - 1
-    field = int(m.group(3)) - 1
+def generate_companion(flex_folder):
+    source_file = 'test.fake'
+    proc = subprocess.Popen(
+        ['showinf', '-nopix', '-omexml-only', source_file],
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE)
+    (output, error_output) = proc.communicate()
+    logging.info("Generated OME-XML for %s" % source_file)
 
-    for p in i.findall('OME:Pixels', NS):
-        # Dimension sanity check
-        assert int(p.attrib['SizeC']) == 3
-        assert int(p.attrib['SizeT']) == 1
-        assert int(p.attrib['SizeZ']) == 5
-        assert p.attrib['DimensionOrder'] == 'XYCZT'
+    tree, well_uuids = update_companion(output)
+    logging.info("Updated the OME-XML for %s" % source_file)
 
-        # Find the metadataonly element
-        c = p.find('OME:MetadataOnly', NS)
-        tail = c.tail
-        index = list(p).index(c)
+    # Rewrite companion file
+    companion_file = 'test.companion.ome'
+    tree.write(companion_file, encoding='UTF-8', xml_declaration=True)
+    logging.info("Generated" % companion_file)
 
-        # Determine field filename/UUID
-        well_filename = "Sac6-tdTomato/1/%03d%03d000.flex" % (
-            row + 1, column + 1)
-        well_uuid = well_uuids.setdefault(well_filename, uuid.uuid4().urn)
 
-        # Create a TiffData/UUID element
-        field_tiffdata = ElementTree.Element(
-            'TiffData', FirstC='0', FirstT='0', FirstZ='0', PlaneCount='15',
-            IFD=str(field * 15))
-        field_tiffdata.tail = tail
-        field_uuid = ElementTree.SubElement(
-            field_tiffdata, "UUID", {'FileName': well_filename})
-        field_uuid.text = well_uuid
-        field_uuid.tail = tail
+def update_companion(xml_string):
+    tree = ElementTree.ElementTree(ElementTree.fromstring(xml_string))
+    root = tree.getroot()
+    well_uuids = {}
 
-        # Replace MetadataOnly element by TiffData
-        p.remove(c)
-        p.insert(index, field_tiffdata)
+    for i in root.findall('OME:Image', NS):
+        name = i.attrib['Name']
+        # Parse the image name and retrieve row/column/field
+        m = NAME_PATTERN.match(name)
+        row = string.ascii_uppercase.index(m.group(1))
+        column = int(m.group(2)) - 1
+        field = int(m.group(3)) - 1
 
-# Rewrite companion file
-tree.write(companion_file, encoding='UTF-8', xml_declaration=True)
+        for p in i.findall('OME:Pixels', NS):
+            # Dimension sanity check
+            assert int(p.attrib['SizeC']) == 3
+            assert int(p.attrib['SizeT']) == 1
+            assert int(p.attrib['SizeZ']) == 5
+            assert p.attrib['DimensionOrder'] == 'XYCZT'
+
+            # Find the metadataonly element
+            c = p.find('OME:MetadataOnly', NS)
+            tail = c.tail
+            index = list(p).index(c)
+
+            # Determine field filename/UUID
+            well_filename = "Sac6-tdTomato/1/%03d%03d000.flex" % (
+                row + 1, column + 1)
+            well_uuid = well_uuids.setdefault(well_filename, uuid.uuid4().urn)
+
+            # Create a TiffData/UUID element
+            field_tiffdata = ElementTree.Element(
+                'TiffData', FirstC='0', FirstT='0', FirstZ='0',
+                PlaneCount='15', IFD=str(field * 15))
+            field_tiffdata.tail = tail
+            field_uuid = ElementTree.SubElement(
+                field_tiffdata, "UUID", {'FileName': well_filename})
+            field_uuid.text = well_uuid
+            field_uuid.tail = tail
+
+            # Replace MetadataOnly element by TiffData
+            p.remove(c)
+            p.insert(index, field_tiffdata)
+    return tree, well_uuids
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument("folder", help="The folder.")
+    parser.add_argument('--verbose', '-v', action='count', default=0)
+    args = parser.parse_args()
+
+    logging.basicConfig(level=logging.WARN - 10 * args.verbose)
+
+    generate_companion(args.folder)
