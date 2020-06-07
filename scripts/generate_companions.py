@@ -24,7 +24,7 @@ ElementTree.register_namespace("", NS['OME'])
 def generate_companion(flex_folder):
     files = glob.glob('%s/*.flex' % flex_folder)
 
-    marker = os.path.basename(os.path.dirname(flex_folder))
+    marker = os.path.basename(os.path.dirname(os.path.abspath(flex_folder)))
     replicate = os.path.basename(flex_folder)
     source_file = files[0]
     proc = subprocess.Popen(
@@ -41,7 +41,7 @@ def generate_companion(flex_folder):
     # Rewrite companion file
     companion_file = '%s_%s.companion.ome' % (marker, replicate)
     tree.write(companion_file, encoding='UTF-8', xml_declaration=True)
-    logging.info("Generated" % companion_file)
+    logging.info("Generated %s" % companion_file)
 
 
 def update_companion(xml_string, prefix):
