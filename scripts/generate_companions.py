@@ -32,8 +32,8 @@ NAME_PATTERN = re.compile("Well ([A-Z])-(\d+); Field #(\d)")
 ElementTree.register_namespace("", NS['OME'])
 
 
-def generate_companion(marker, replicate):
-    files = glob.glob('%s/%s/*.flex' % (marker, replicate))
+def generate_companion(folder):
+    files = sorted(glob.glob('%s/*.flex' % (folder)))
     source_file = files[0]
     proc = subprocess.Popen(
         ['showinf', '-nopix', '-omexml-only', source_file],
@@ -42,12 +42,11 @@ def generate_companion(marker, replicate):
     (output, error_output) = proc.communicate()
     logging.debug("Generated OME-XML for %s" % source_file)
 
-    tree, well_uuids = update_companion(output, "%s/%s" % (
-        marker, replicate))
-    logging.debug("Updated the OME-XML for %s" % source_file)
+    tree, well_uuids = update_companion(output, folder)
+    assert files == sorted(well_uuids.keys())
 
     # Rewrite companion file
-    companion_file = '%s_%s.companion.ome' % (marker, replicate)
+    companion_file = '%s.companion.ome' % folder.replace('/', '_')
     tree.write(companion_file, encoding='UTF-8', xml_declaration=True)
     logging.debug("Generated %s" % companion_file)
 
@@ -95,6 +94,7 @@ def update_companion(xml_string, prefix):
             # Replace MetadataOnly element by TiffData
             p.remove(c)
             p.insert(index, field_tiffdata)
+    logging.debug("Updated the OME-XML with TiffData elements")
     return tree, well_uuids
 
 
@@ -111,8 +111,6 @@ if __name__ == '__main__':
     companions_dir = join(metadata_dir, 'screenA', 'companions')
     os.chdir(companions_dir)
 
-    for marker in os.listdir("."):
-        for replicate in os.listdir(marker):
-            logging.info("Generating companion file for %s/%s" % (
-                marker, replicate))
-            generate_companion(marker, replicate)
+    for folder in sorted(glob.glob('screenA/companions/*/*')):
+        logging.info("Generating companion file for %s" % folder)
+        generate_companion(folder)
