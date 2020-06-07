@@ -100,7 +100,6 @@ def update_companion(xml_string, prefix):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("folder", help="The folder.")
     parser.add_argument('--verbose', '-v', action='count', default=0)
     parser.add_argument('--quiet', '-q', action='count', default=0)
     args = parser.parse_args()
