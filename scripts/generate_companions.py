@@ -6,7 +6,9 @@
 
 
 import argparse
+import glob
 import logging
+import os
 import re
 import string
 import subprocess
@@ -20,7 +22,11 @@ ElementTree.register_namespace("", NS['OME'])
 
 
 def generate_companion(flex_folder):
-    source_file = 'test.fake'
+    files = glob.glob('%s/*.flex' % flex_folder)
+
+    marker = os.path.basename(os.path.dirname(d))
+    replicate = os.path.basename(d)
+    source_file = files[0]
     proc = subprocess.Popen(
         ['showinf', '-nopix', '-omexml-only', source_file],
         stdin=subprocess.PIPE,
@@ -28,16 +34,16 @@ def generate_companion(flex_folder):
     (output, error_output) = proc.communicate()
     logging.info("Generated OME-XML for %s" % source_file)
 
-    tree, well_uuids = update_companion(output)
+    tree, well_uuids = update_companion(output, "%s/%s" % (
+        marker, replicate))
     logging.info("Updated the OME-XML for %s" % source_file)
 
     # Rewrite companion file
-    companion_file = 'test.companion.ome'
-    tree.write(companion_file, encoding='UTF-8', xml_declaration=True)
+    companion_file = '%s_%s.companion.ome' % (marker, replicate)     tree.write(companion_file, encoding='UTF-8', xml_declaration=True)
     logging.info("Generated" % companion_file)
 
 
-def update_companion(xml_string):
+def update_companion(xml_string, prefix):
     tree = ElementTree.ElementTree(ElementTree.fromstring(xml_string))
     root = tree.getroot()
     well_uuids = {}
@@ -63,8 +69,8 @@ def update_companion(xml_string):
             index = list(p).index(c)
 
             # Determine field filename/UUID
-            well_filename = "Sac6-tdTomato/1/%03d%03d000.flex" % (
-                row + 1, column + 1)
+            well_filename = "%s/%03d%03d000.flex" % (
+                prefix, row + 1, column + 1)
             well_uuid = well_uuids.setdefault(well_filename, uuid.uuid4().urn)
 
             # Create a TiffData/UUID element
