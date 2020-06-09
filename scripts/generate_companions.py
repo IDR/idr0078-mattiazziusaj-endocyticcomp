@@ -117,6 +117,6 @@ if __name__ == '__main__':
         for folder in sorted(glob.glob('*/*')):
             logging.info("Generating companion file for %s" % folder)
             companion_file = generate_companion(folder)
-            f.write("%s\t%s\n", folder.replace('/', ' '),
+            f.write("%s\t%s\n" % (folder.replace('/', ' '),
                     "/uod/idr/metadata/idr0078-mattiazziusaj-endocyticcomp/"
-                    "screenA/companions/%s" % companion_file)
+                    "screenA/companions/%s" % companion_file))
