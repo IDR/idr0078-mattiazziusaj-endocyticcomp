@@ -42,7 +42,9 @@ def generate_companion(folder):
     (output, error_output) = proc.communicate()
     logging.debug("Generated OME-XML for %s" % source_file)
 
-    tree, well_uuids = update_companion(output, folder)
+    multiwellsample = files[0].endswith("000.flex")
+    tree, well_uuids = update_companion(
+        output, folder, multiwellsample=multiwellsample)
     # Files sanity check
     assert files == sorted(well_uuids.keys())
 
@@ -53,7 +55,7 @@ def generate_companion(folder):
     return companion_file
 
 
-def update_companion(xml_string, prefix):
+def update_companion(xml_string, prefix, multiwellsample=True):
     tree = ElementTree.ElementTree(ElementTree.fromstring(xml_string))
     root = tree.getroot()
     well_uuids = {}
@@ -80,14 +82,20 @@ def update_companion(xml_string, prefix):
             index = list(p).index(c)
 
             # Determine field filename/UUID
-            well_filename = "%s/%03d%03d000.flex" % (
-                prefix, row + 1, column + 1)
+            if multiwellsample:
+                well_filename = "%s/%03d%03d000.flex" % (
+                    prefix, row + 1, column + 1)
+                firstifd = field * nplanes
+            else:
+                well_filename = "%s/%03d%03d%03d.flex" % (
+                    prefix, row + 1, column + 1, field + 1)
+                firstifd = 0
             well_uuid = well_uuids.setdefault(well_filename, uuid.uuid4().urn)
 
             # Create a TiffData/UUID element
             field_tiffdata = ElementTree.Element(
                 'TiffData', FirstC='0', FirstT='0', FirstZ='0',
-                PlaneCount=str(nplanes), IFD=str(field * nplanes))
+                PlaneCount=str(nplanes), IFD=str(firstifd))
             field_tiffdata.tail = tail
             field_uuid = ElementTree.SubElement(
                 field_tiffdata, "UUID", {'FileName': well_filename})
@@ -119,6 +127,7 @@ if __name__ == '__main__':
         for folder in sorted(glob.glob('*/*')):
             logging.info("Generating companion file for %s" % folder)
             companion_file = generate_companion(folder)
-            f.write("%s\t%s\n" % (folder.replace('/', ' '),
+            f.write("%s\t%s\n" % (
+                    folder.replace('/', ' '),
                     "/uod/idr/metadata/idr0078-mattiazziusaj-endocyticcomp/"
                     "screenA/companions/%s" % companion_file))
