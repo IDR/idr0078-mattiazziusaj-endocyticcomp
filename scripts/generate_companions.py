@@ -113,7 +113,8 @@ if __name__ == '__main__':
     companions_dir = join(metadata_dir, 'screenA', 'companions')
     os.chdir(companions_dir)
 
-    with open('idr0078-screenA-plates.tsv', 'w') as f:
+    plates_file = join(metadata_dir, 'screenA', 'idr0078-screenA-plates.tsv')
+    with open(plates_file, 'w') as f:
         for folder in sorted(glob.glob('*/*')):
             logging.info("Generating companion file for %s" % folder)
             companion_file = generate_companion(folder)
