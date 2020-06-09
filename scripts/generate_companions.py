@@ -50,6 +50,7 @@ def generate_companion(folder):
     companion_file = '%s.companion.ome' % folder.replace('/', '_')
     tree.write(companion_file, encoding='UTF-8', xml_declaration=True)
     logging.debug("Generated %s" % companion_file)
+    return companion_file
 
 
 def update_companion(xml_string, prefix):
@@ -112,6 +113,10 @@ if __name__ == '__main__':
     companions_dir = join(metadata_dir, 'screenA', 'companions')
     os.chdir(companions_dir)
 
-    for folder in sorted(glob.glob('*/*')):
-        logging.info("Generating companion file for %s" % folder)
-        generate_companion(folder)
+    with open('idr0078-screenA-plates.tsv', 'w') as f:
+        for folder in sorted(glob.glob('*/*')):
+            logging.info("Generating companion file for %s" % folder)
+            companion_file = generate_companion(folder)
+            f.write("%s\t%s\n", folder.replace('/', ' '),
+                    "/uod/idr/metadata/idr0078-mattiazziusaj-endocyticcomp/"
+                    "screenA/companions/%s" % companion_file)
