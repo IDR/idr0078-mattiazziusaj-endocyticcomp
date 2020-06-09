@@ -43,6 +43,7 @@ def generate_companion(folder):
     logging.debug("Generated OME-XML for %s" % source_file)
 
     tree, well_uuids = update_companion(output, folder)
+    # Files sanity check
     assert files == sorted(well_uuids.keys())
 
     # Rewrite companion file
@@ -111,6 +112,6 @@ if __name__ == '__main__':
     companions_dir = join(metadata_dir, 'screenA', 'companions')
     os.chdir(companions_dir)
 
-    for folder in sorted(glob.glob('screenA/companions/*/*')):
+    for folder in sorted(glob.glob('*/*')):
         logging.info("Generating companion file for %s" % folder)
         generate_companion(folder)
