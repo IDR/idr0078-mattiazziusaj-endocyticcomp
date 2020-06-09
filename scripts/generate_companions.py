@@ -68,10 +68,11 @@ def update_companion(xml_string, prefix):
 
         for p in i.findall('OME:Pixels', NS):
             # Dimension sanity check
-            assert int(p.attrib['SizeC']) == 3
+            assert int(p.attrib['SizeC']) == 3 or int(p.attrib['SizeC']) == 2
             assert int(p.attrib['SizeT']) == 1
             assert int(p.attrib['SizeZ']) == 5
             assert p.attrib['DimensionOrder'] == 'XYCZT'
+            nplanes = int(p.attrib['SizeC']) * int(p.attrib['SizeZ'])
 
             # Find the metadataonly element
             c = p.find('OME:MetadataOnly', NS)
@@ -86,7 +87,7 @@ def update_companion(xml_string, prefix):
             # Create a TiffData/UUID element
             field_tiffdata = ElementTree.Element(
                 'TiffData', FirstC='0', FirstT='0', FirstZ='0',
-                PlaneCount='15', IFD=str(field * 15))
+                PlaneCount=str(nplanes), IFD=str(field * nplanes))
             field_tiffdata.tail = tail
             field_uuid = ElementTree.SubElement(
                 field_tiffdata, "UUID", {'FileName': well_filename})
