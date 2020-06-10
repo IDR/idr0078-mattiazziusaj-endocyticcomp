@@ -42,11 +42,7 @@ def generate_companion(folder):
     (output, error_output) = proc.communicate()
     logging.debug("Generated OME-XML for %s" % source_file)
 
-    multiwellsample = files[0].endswith("000.flex")
-    tree, well_uuids = update_companion(
-        output, folder, multiwellsample=multiwellsample)
-    # Files sanity check
-    assert files == sorted(well_uuids.keys())
+    tree = update_companion(output, files)
 
     # Rewrite companion file
     companion_file = '%s.companion.ome' % folder.replace('/', '_')
@@ -55,10 +51,11 @@ def generate_companion(folder):
     return companion_file
 
 
-def update_companion(xml_string, prefix, multiwellsample=True):
+def update_companion(xml_string, files):
+    prefix = files[0].rsplit('/', 1)[0]
     tree = ElementTree.ElementTree(ElementTree.fromstring(xml_string))
     root = tree.getroot()
-    well_uuids = {}
+    file_uuids = {}
 
     for i in root.findall('OME:Image', NS):
         name = i.attrib['Name']
@@ -81,32 +78,54 @@ def update_companion(xml_string, prefix, multiwellsample=True):
             tail = c.tail
             index = list(p).index(c)
 
-            # Determine field filename/UUID
-            if multiwellsample:
-                well_filename = "%s/%03d%03d000.flex" % (
-                    prefix, row + 1, column + 1)
+            # First  variant: all fields of view for each well are stored
+            # in the same Flex file
+            filename = "%s/%03d%03d000.flex" % (prefix, row + 1, column + 1)
+            if filename in files:
                 firstifd = field * nplanes
             else:
-                well_filename = "%s/%03d%03d%03d.flex" % (
+                # Second variant: each field of view for each well is stored
+                # in a separate Flex file
+                filename = "%s/%03d%03d%03d.flex" % (
                     prefix, row + 1, column + 1, field + 1)
-                firstifd = 0
-            well_uuid = well_uuids.setdefault(well_filename, uuid.uuid4().urn)
+                if filename in files:
+                    firstifd = 0
+                else:
+                    logging.warning(
+                        "Could not find flex file for row %s, column %s,"
+                        " field %s" % (row, column, field))
+                    filename = None
 
-            # Create a TiffData/UUID element
-            field_tiffdata = ElementTree.Element(
-                'TiffData', FirstC='0', FirstT='0', FirstZ='0',
-                PlaneCount=str(nplanes), IFD=str(firstifd))
-            field_tiffdata.tail = tail
-            field_uuid = ElementTree.SubElement(
-                field_tiffdata, "UUID", {'FileName': well_filename})
-            field_uuid.text = well_uuid
-            field_uuid.tail = tail
+            if filename is not None:
+                # Create a TiffData/UUID element
+                field_tiffdata = ElementTree.Element(
+                    'TiffData', FirstC='0', FirstT='0', FirstZ='0',
+                    PlaneCount=str(nplanes), IFD=str(firstifd))
+                field_tiffdata.tail = tail
+                field_uuid = ElementTree.SubElement(
+                    field_tiffdata, "UUID", {'FileName': filename})
+                field_uuid.text = file_uuids.setdefault(
+                    filename, uuid.uuid4().urn)
+                field_uuid.tail = tail
+            else:
+                # Create an empty TiffData element
+                field_tiffdata = ElementTree.Element(
+                    'TiffData', FirstC='0', FirstT='0', FirstZ='0')
+                field_tiffdata.tail = tail
 
             # Replace MetadataOnly element by TiffData
             p.remove(c)
             p.insert(index, field_tiffdata)
+
     logging.debug("Updated the OME-XML with TiffData elements")
-    return tree, well_uuids
+
+    # Sanity check: make sure that all original files have been mapped
+    unmapped_files = set(files) - set(file_uuids.keys())
+    if unmapped_files != set([]):
+        logging.error("Found unmapped Flex files : %s" % unmapped_files)
+        raise
+
+    return tree
 
 
 if __name__ == '__main__':
