@@ -91,9 +91,7 @@ def update_companion(xml_string, files):
                 if filename in files:
                     firstifd = 0
                 else:
-                    logging.warning(
-                        "Could not find flex file for row %s, column %s,"
-                        " field %s" % (row, column, field))
+                    logging.warning("Could not find %s" % filename)
                     filename = None
 
             if filename is not None:
