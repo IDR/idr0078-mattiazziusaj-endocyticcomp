@@ -2,7 +2,7 @@
 continue: "true"
 transfer: "ln_s"
 exclude: "clientpath"
-skip: "checksum"
+skip: "all"
 logprefix: "logs/"
 parallel_upload: "10"
 columns:
