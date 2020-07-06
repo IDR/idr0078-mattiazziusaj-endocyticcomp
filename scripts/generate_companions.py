@@ -18,14 +18,16 @@
 import argparse
 import glob
 import logging
-import os
-from os.path import abspath, dirname, join
+from os.path import abspath, dirname, join, relpath, basename
 import re
 import string
 import subprocess
 import uuid
 import xml.etree.ElementTree as ElementTree
 
+FILESET_PATH = (
+    "/uod/idr/filesets/idr0078-mattiazziusaj-endocyticcomp/"
+    "20200706-ometiff/raw/GW/")
 
 NS = {'OME': "http://www.openmicroscopy.org/Schemas/OME/2016-06"}
 NAME_PATTERN = re.compile("Well ([A-Z])-(\d+); Field #(\d)")
@@ -33,7 +35,7 @@ ElementTree.register_namespace("", NS['OME'])
 
 
 def generate_companion(folder):
-    files = sorted(glob.glob('%s/*.flex' % (folder)))
+    files = [relpath(x, folder) for x in glob.glob('%s/*.flex' % folder)]
     source_file = files[0]
     proc = subprocess.Popen(
         ['showinf', '-nopix', '-omexml-only', source_file],
@@ -45,14 +47,13 @@ def generate_companion(folder):
     tree = update_companion(output, files)
 
     # Rewrite companion file
-    companion_file = '%s.companion.ome' % folder.replace('/', '_')
+    companion_file = '%s/%s.companion.ome' % (folder, basename(folder))
     tree.write(companion_file, encoding='UTF-8', xml_declaration=True)
     logging.debug("Generated %s" % companion_file)
     return companion_file
 
 
 def update_companion(xml_string, files):
-    prefix = files[0].rsplit('/', 1)[0]
     tree = ElementTree.ElementTree(ElementTree.fromstring(xml_string))
     root = tree.getroot()
     file_uuids = {}
@@ -80,14 +81,14 @@ def update_companion(xml_string, files):
 
             # First  variant: all fields of view for each well are stored
             # in the same Flex file
-            filename = "%s/%03d%03d000.flex" % (prefix, row + 1, column + 1)
+            filename = "%03d%03d000.flex" % (row + 1, column + 1)
             if filename in files:
                 firstifd = field * nplanes
             else:
                 # Second variant: each field of view for each well is stored
                 # in a separate Flex file
-                filename = "%s/%03d%03d%03d.flex" % (
-                    prefix, row + 1, column + 1, field + 1)
+                filename = "%03d%03d%03d.flex" % (
+                    row + 1, column + 1, field + 1)
                 if filename in files:
                     firstifd = 0
                 else:
@@ -136,15 +137,9 @@ if __name__ == '__main__':
         level=logging.INFO - 10 * args.verbose + 10 * args.quiet)
 
     metadata_dir = dirname(dirname(abspath(__file__)))
-    companions_dir = join(metadata_dir, 'screenA', 'companions')
-    os.chdir(companions_dir)
-
     plates_file = join(metadata_dir, 'screenA', 'idr0078-screenA-plates.tsv')
     with open(plates_file, 'w') as f:
-        for folder in sorted(glob.glob('*/*')):
+        for folder in sorted(glob.glob('%s/*/*' % FILESET_PATH)):
             logging.info("Generating companion file for %s" % folder)
             companion_file = generate_companion(folder)
-            f.write("%s\t%s\n" % (
-                    folder.replace('/', ' '),
-                    "/uod/idr/metadata/idr0078-mattiazziusaj-endocyticcomp/"
-                    "screenA/companions/%s" % companion_file))
+            f.write("%s\t%s\n" % (folder.replace('/', ' '), companion_file))
