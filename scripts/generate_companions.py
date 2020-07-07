@@ -26,8 +26,7 @@ import uuid
 import xml.etree.ElementTree as ElementTree
 
 FILESET_PATH = (
-    "/uod/idr/filesets/idr0078-mattiazziusaj-endocyticcomp/"
-    "20200706-ometiff/raw/GW/")
+    "/uod/idr/filesets/idr0078-mattiazziusaj-endocyticcomp/20200706-ometiff/")
 
 NS = {'OME': "http://www.openmicroscopy.org/Schemas/OME/2016-06"}
 NAME_PATTERN = re.compile("Well ([A-Z])-(\d+); Field #(\d)")
