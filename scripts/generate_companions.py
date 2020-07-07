@@ -26,7 +26,7 @@ import uuid
 import xml.etree.ElementTree as ElementTree
 
 FILESET_PATH = (
-    "/uod/idr/filesets/idr0078-mattiazziusaj-endocyticcomp/20200706-ometiff/")
+    "/uod/idr/filesets/idr0078-mattiazziusaj-endocyticcomp/20200707-ometiff/")
 
 NS = {'OME': "http://www.openmicroscopy.org/Schemas/OME/2016-06"}
 NAME_PATTERN = re.compile("Well ([A-Z])-(\d+); Field #(\d)")
@@ -34,7 +34,7 @@ ElementTree.register_namespace("", NS['OME'])
 
 
 def generate_companion(folder):
-    files = [relpath(x, folder) for x in glob.glob('%s/*.flex' % folder)]
+    files = glob.glob('%s/*.flex' % folder)
     source_file = files[0]
     proc = subprocess.Popen(
         ['showinf', '-nopix', '-omexml-only', source_file],
@@ -43,7 +43,7 @@ def generate_companion(folder):
     (output, error_output) = proc.communicate()
     logging.debug("Generated OME-XML for %s" % source_file)
 
-    tree = update_companion(output, files)
+    tree = update_companion(output, [relpath(x, folder) for x in files])
 
     # Rewrite companion file
     companion_file = '%s/%s.companion.ome' % (folder, basename(folder))
