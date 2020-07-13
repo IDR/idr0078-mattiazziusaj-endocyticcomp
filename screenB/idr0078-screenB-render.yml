@@ -1,0 +1,18 @@
+---
+channels:
+    1:
+        active: true
+        color: 00FF00
+        end: 10000.0
+        label: EGFP
+        start: 100.0
+    2:
+        active: false
+        color: FFFFFFF
+        end: 10000.0
+        label: Alexa 647
+        start: 3000.0
+greyscale: false
+t: 1
+version: 2
+z: 3
