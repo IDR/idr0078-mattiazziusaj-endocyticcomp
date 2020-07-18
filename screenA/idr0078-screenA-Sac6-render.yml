@@ -1,0 +1,24 @@
+---
+channels:
+    1:
+        active: true
+        color: 00FF00
+        end: 150.0
+        label: Sla1-GFP
+        start: 0.0
+    2:
+        active: true
+        color: FF0000
+        end: 198.0
+        label: Sac6-tdTomato
+        start: 0.0
+    3:
+        active: false
+        color: FFFFFF
+        end: 641.0
+        label: Dextran Alexa 647
+        start: 384.0
+greyscale: false
+t: 1
+version: 2
+z: 3

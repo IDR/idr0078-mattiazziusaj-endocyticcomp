@@ -1,0 +1,18 @@
+---
+channels:
+    1:
+        active: true
+        color: 00FF00
+        end: 200    
+        label: Sla1-GFP
+        start: 0.0
+    2:
+        active: false
+        color: FFFFFF
+        end: 650   
+        label: Dextran Alexan 567
+        start: 300
+greyscale: false
+t: 1
+version: 2
+z: 3
