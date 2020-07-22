@@ -8,7 +8,7 @@ channels:
         start: 100.0
     2:
         active: false
-        color: FFFFFFF
+        color: FFFFFF
         end: 10000.0
         label: Dextran Alexa 647
         start: 3000.0
