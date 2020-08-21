@@ -1,0 +1,89 @@
+---
+name: idr0078-mattiazziusaj-endocyticcomp/screenA
+version: 2
+
+defaults:
+  # Should the column be processed when creating bulk-annotations (yes/no)
+  include: false
+  # Columns type of the bulk-annotations column
+  type: string
+
+  # If non-empty a string used to separate multiple fields in a column
+  # White space will be stripped
+  split:
+  # Should this column be included in the clients (yes/no)
+  includeclient: true
+  # Should this column be visible in the clients, if no the column should be
+  # hidden in the client but will still be indexed by the searcher (yes/no)
+  visible: true
+  # Should empty values be omitted from the client display
+  omitempty: true
+
+columns:
+
+  - name: Characteristics [Strain]
+    clientname: Strain
+    include: true
+  - name: Experimental Condition [Genotype]
+    clientname: Genotype
+    include: true
+
+  - name: Channels
+    include: true
+  - name: Comment [Channels]
+    include: true
+
+  - name: Quality Control
+    include: true
+  - name: Processed Image Channel
+    include: true
+
+
+  ######################################################################
+  # mapr groups
+  ######################################################################
+
+  - group:
+      namespace: openmicroscopy.org/mapr/organism
+      columns:
+        - name: Characteristics [Organism]
+          clientname: Organism
+          include: true
+
+  - group:
+      namespace: openmicroscopy.org/mapr/gene
+      columns:
+        - name: Gene Identifier
+          include: true
+          omitempty: false
+        - name: Gene Identifier
+          clientname: Gene Identifier URL
+          clientvalue: >
+            http://www.yeastgenome.org/locus/{{ value|urlencode }}/overview
+          include: true
+        - name: Gene Symbol
+          include: true
+          omitempty: false
+
+  - group:
+      namespace: openmicroscopy.org/mapr/gene/supplementary
+      columns:
+        - name: Comment [Allele]
+          clientname: Allele
+
+# Advanced options (experimental)
+advanced:
+  # If a map-annotation is attached to a well also attach it to all images
+  # in the well
+  well_to_images: true
+
+  # TODO: Primary key config should be in a global config
+  ignore_missing_primary_key: true
+  primary_group_keys:
+    - namespace: openmicroscopy.org/mapr/organism
+      keys:
+        - Organism
+    - namespace: openmicroscopy.org/mapr/gene
+      keys:
+        - Gene Identifier
+        - Gene Symbol
