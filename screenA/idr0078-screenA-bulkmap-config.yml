@@ -53,15 +53,15 @@ columns:
   - group:
       namespace: openmicroscopy.org/mapr/gene
       columns:
-        - name: Gene Identifier
+        - name: Comment [Gene Identifier]
           include: true
           omitempty: false
-        - name: Gene Identifier
+        - name: Comment [Gene Identifier]
           clientname: Gene Identifier URL
           clientvalue: >
             http://www.yeastgenome.org/locus/{{ value|urlencode }}/overview
           include: true
-        - name: Gene Symbol
+        - name: Comment [Gene Symbol]
           include: true
           omitempty: false
 
