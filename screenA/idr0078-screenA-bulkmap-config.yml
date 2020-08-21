@@ -21,7 +21,7 @@ defaults:
 
 columns:
 
-  - name: Characteristics [Strain]
+  - name: Comment [Strain Identifier]
     clientname: Strain
     include: true
   - name: Experimental Condition [Genotype]
