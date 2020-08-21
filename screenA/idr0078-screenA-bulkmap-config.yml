@@ -70,6 +70,7 @@ columns:
       columns:
         - name: Comment [Allele]
           clientname: Allele
+          include: true
 
 # Advanced options (experimental)
 advanced:
