@@ -30,9 +30,6 @@ columns:
 
   - name: Channels
     include: true
-  - name: Comment [Channels]
-    include: true
-
   - name: Quality Control
     include: true
   - name: Processed Image Channel
