@@ -30,7 +30,8 @@ columns:
 
   - name: Channels
     include: true
-  - name: Quality Control
+  - name: Comment [Image]
+    clientname: Image Comment
     include: true
   - name: Processed Image Channel
     include: true
