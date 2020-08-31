@@ -9,7 +9,7 @@ channels:
     2:
         active: true
         color: FF0000
-        end: 198.0
+        end: 100.0
         label: Sac6-tdTomato
         start: 0.0
     3:
