@@ -4,7 +4,7 @@ channels:
         active: true
         color: 00FF00
         end: 150.0
-        label: Vph1-GFP
+        label: Vph1-yEGFP
         start: 0.0
     2:
         active: true

@@ -4,7 +4,7 @@ channels:
         active: true
         color: 00FF00
         end: 200    
-        label: Sla1-GFP
+        label: Sla1-yEGFP
         start: 0.0
     2:
         active: false
