@@ -1,0 +1,191 @@
+# FILL IN AS MUCH INFORMATION AS YOU CAN.  HINTS HAVE BEEN PUT IN SOME FIELDS AFTER THE HASH # SYMBOL. REPLACE THE HINT WITH TEXT WHERE APPROPRIATE.	
+# STUDY DESCRIPTION SECTION		
+# Section with generic information about the study including title, description, publication details (if applicable) and contact details														
+
+Comment[IDR Study Accession]	idr0078		
+						
+Study Title	Systematic genetics and single-cell imaging reveal widespread morphological pleiotropy and cell-to-cell variability			
+						
+Study Type	high content screen	
+									
+Study Type Term Source REF	EFO	
+									
+Study Type Term Accession	EFO_0007550	
+							
+Study Description	Our ability to understand the genotype-to-phenotype relationship is hindered by the lack of detailed understanding of phenotypes at a single-cell level. To systematically assess cell-to-cell phenotypic variability, we combined automated yeast genetics, high-content screening and neural network-based image analysis of single cells, focussing on genes that influence the architecture of four subcellular compartments of the endocytic pathway as a model system. Our unbiased assessment of the morphology of these compartments — endocytic patch, actin patch, late endosome and vacuole — identified 17 distinct mutant phenotypes associated with ~1,600 genes (~30% of all yeast genes). Approximately half of these mutants exhibited multiple phenotypes, highlighting the extent of morphological pleiotropy. Quantitative analysis also revealed that incomplete penetrance was prevalent, with the majority of mutants exhibiting substantial variability in phenotype at the single-cell level. Our single-cell analysis enabled exploration of factors that contribute to incomplete penetrance and cellular heterogeneity, including replicative age, organelle inheritance and response to stress.								
+Study Key Words	cell-to-cell variability	endocytosis	high-content screening	phenotype classification	single-cell analysis			
+							
+Study Organism	Saccharomyces cerevisiae																			
+Study Organism Term Source REF	NCBITaxon	
+								
+Study Organism Term Accession	4932		
+							
+Study Screens Number	2																			
+Study External URL	https://thecellvision.org/endocytosis/		
+
+Study BioImage Archive Accession
+						
+Study Public Release Date																												
+# Study Publication														
+Study PubMed ID	32064787													
+Study Publication Title	Systematic genetics and single-cell imaging reveal widespread morphological pleiotropy and cell-to-cell																											
+Study Author List	Mattiazzi Usaj M, Sahin N, Friesen H, Pons C, Usaj M, Paz Masinas M, Shuteriqi E, Shkurin A, Aloy P, Morris Q, Boone C, Andrews BJ													
+Study PMC ID	PMC7025093 													
+Study DOI	https://doi.org/10.15252/msb.20199243																																						
+# Study Contacts														
+Study Person Last Name	Andrews	Mattiazzi Usaj												
+Study Person First Name	Brenda	Mojca												
+Study Person Email	brenda.andrews@utoronto.ca	m.mattiazziusaj@utoronto.ca												
+Study Person Address	The Donnelly Centre, University of Toronto, 160 College St, Toronto, ON, Canada	The Donnelly Centre, University of Toronto, 160 College St, Toronto, ON, Canada												
+Study Person ORCID	0000-0001-6427-6493	0000-0002-7389-8478												
+Study Person Roles	submitter	submitter																																				
+# Study License and Data DOI														
+Study License	CC-BY 4.0													
+Study License URL	https://creativecommons.org/licenses/by/4.0/													
+Study Copyright	Mattiazzi Usaj et al													
+Study Data Publisher	University of Dundee													
+Study Data DOI																										
+Term Source Name	NCBITaxon	EFO	CMPO	Fbbi										
+Term Source File	http://purl.obolibrary.org/obo/	http://www.ebi.ac.uk/efo/	http://www.ebi.ac.uk/cmpo/	http://purl.obolibrary.org/obo/																																						
+# SCREEN SECTION														
+# Screen Section containing all information relative to each screen in the study including materials used, protocols names and description, phenotype names and description. 														
+# For multiple screens this section should be repeated.  Copy and paste the whole section below and fill out for the next screen.																										
+Screen Number	1													
+Comment[IDR Screen Name]	idr0078-mattiazziusaj-endocyticcomp/screenA	
+
+Screen Sample Type	cell
+																									
+Screen Description	primary screens (genome wide)																																									
+Screen Size	Plates:  Sac6-tdTomato: 30; Sla1-yEGFP: 38; Snf7-yEGFP: 44; Vph1-yEGFP: 40	5D Images: 	Planes:  5	Average Image Dimension (XYZCT): xyzcf = 1307x977x5x3x3 OR xyzcf = 1335x990x5x2x1 (f=field) (xy is approximate)	Total Tb: 3.6	# fill in any values you know																																				
+Screen Example Images																																										
+Screen Imaging Method	spinning disk confocal microscopy																																									
+Screen Imaging Method Term Source REF	Fbbi																																									
+Screen Imaging Method Term Accession	FBbi_00000253																																						
+Screen Technology Type	gene deletion screen																																									
+Screen Technology Type Term Source REF	EFO																																									
+Screen Technology Type Term Accession	EFO_0007552																																									
+Screen Type	primary screen																																									
+Screen Type Term Source REF	EFO																																								
+Screen Type Term Accession	EFO_0007556																																										
+Screen Comments	Images not included in the downstream analysis are excluded (see column ‘Quality control’ in library file for details).  																																									
+																																										
+# Library section. The library file should be supplied separately and it should contain  the reagents description including, at the absolute minimum: reagent ID, sequences and position in the layout (= plate + position in the plate)																																										
+Library File Name	idr0078-screenA-library.csv																																									
+Library File Format	csv (comma-separated text)																																									
+Library Type	haploid deletion library																																									
+Library Type Term Source REF	EFO																																									
+Library Type Term Accession	EFO_0007561																																									
+Library Manufacturer																																										
+Library Version																																										
+Library Experimental Conditions	mutant strain																																									
+Library Experimental Conditions Term Source REF	EFO																																									
+Library Experimental Conditions Term Accession	EFO_0004006																																									
+Quality Control Description	Blank wells, wells with low cell count were excluded from analysis (see note in Quality control column in the library file).  																																									
+																																										
+# Protocols																																										
+Protocol Name	growth protocol	treatment protocol	HCS library protocol	HCS image acquisition and feature extraction protocol	HCS data analysis protocol																																					
+Protocol Type	growth protocol	treatment protocol	HCS library protocol	HCS image acquisition and feature extraction protocol	HCS data analysis protocol																																					
+Protocol Type Term Source REF	EFO	EFO	EFO	EFO	EFO																																					
+Protocol Type Term Accession	EFO_0003789	EFO_0003969	EFO_0007571	EFO_0007572	EFO_0007573																																					
+Protocol Description	Briefly, haploid mutant MATa strains expressing tagged FPs derived from SGA were grown and imaged in low fluorescence synthetic minimal medium64 supplemented with antibiotics and 2% glucose. Nonessential gene deletion mutants were grown and imaged in logarithmic phase at 30°C, and TS mutants of essential genes were first grown to mid-logarithmic phase and imaged at 26°C, and then incubated for three hours at 37°C and imaged at 37°C. Cells were transferred to a Concanavalin A (ConA) coated 384-well PerkinElmer CellCarrier Ultra imaging plate and centrifuged for 45 seconds at 500 rpm before imaging. To aid in cell segmentation, Dextran Alexa Fluor 647 (Molecular Probes) was added to cells in low fluorescence medium to a final concentration of 10 μg/ml before imaging.	For genome wide screens, micrographs were obtained on the Opera (PerkinElmer) automated spinning disk confocal microscope. Three fields with Z-stacks of 5 optical sections with 0.8 μm spacing were collected per well, with each field of view containing 50 - 150 cells. Secondary screens were imaged on an Opera Phenix (PerkinElmer) automated microscope. All imaging was done with a 60x water- immersion objective. Acquisition settings included using a 405/488/561/640 nm primary dichroic mirror. yEGFP was excited using a 488 nm laser, and emission collected through a 520/35 nm filter. tdTomato was excited using a 561 nm laser, and emission collected through a 600/40 nm filter. Dextran Alexa Fluor 647 was excited using a 640 nm laser, and emission collected through a 690/50 nm filter.	See paper Methods section for full description. 																																						
+																																										
+																																										
+# Phenotypes																																										
+Phenotype Name	Sac6: aggregate	Sac6: bright patches	Sac6: decreased patch number	Sac6: depolarized patches	Sac6: WT	Sla1: aggregate	Sla1: decreased patch number	Sla1: depolarized patches	Sla1: increased patch number	Sla1: WT	Snf7: condensed	Snf7: fragmented	Snf7: membrane	Snf7: WT	Vph1: class E	Vph1: class G	Vph1: enlarged	Vph1: fragmented	Vph1: multilobed	Vph1: V-ATPase defect	Vph1: WT																					
+Phenotype Description	Trained neural network classifier for phenotype classification; phenotype assignment is done at the single-cell level. See Methods section for details																																									
+Phenotype Score Type	automatic																																									
+Phenotype Term Source REF	CMPO																																									
+Phenotype Term Name																																									
+Phenotype Term Accession																																									
+																																										
+# Raw Data Files	folder /raw/genome-wide (4 subfolders, one for each marker) Note: not all channels were analyzed – see column ‘Comments’ in library file for details																																									
+Raw Image Data Format	Evotec/PerkinElmer Opera Flex																																									
+Raw Image Organization	30+38+44+40 plates; 384-well plates; 3 fields per well; either all fields in one flex file, or each field in separate flex file																																									
+																																										
+# Feature Level Data Files																																										
+Feature Level Data File Name	folder /features/genome-wide																																									
+Feature Level Data File Description	each table has 222 columns: cellID, row, column, and 219 feature columns. Each row represents a single cell																																									
+Feature Level Data File Format	csv (comma-separated text)																																									
+Feature Level Data Column Name	cellID	219 feature columns	row	col																																						
+Feature Level Data Column Description	unique cellID	see paper Methods section for description (CellProfiler features)	plate row	plate column																																						
+																																										
+#  Processed Data Files 																																										
+Processed Data File Name	idr0078_supplemental_screenA.csv																																									
+Processed Data File Format	csv (comma-separated text)																																									
+Processed Data File Description	the file contains for each screened strain the results for penetrance and phenotype fractions for all 4 markers; meant as supplemental attachment (?)																																									
+Processed Data Column Name	ORF	Name	Allele	StrainID	Temp	Vph1_Num_cells_GW	Vph1_Num_wells_GW	Vph1_penetrance_GW	Vph1_class E_GW	Vph1_class G_GW	Vph1_enlarged_GW	Vph1_fragmented_GW	Vph1_multilobed_GW	Vph1_V-ATPase defect_GW	Vph1_WT_GW	Vph1_none_GW	Snf7_Num_cells_GW	Snf7_Num_wells_GW	Snf7_penetrance_GW	Snf7_condensed_GW	Snf7_fragmented_GW	Snf7_membrane_GW	Snf7_WT_GW	Snf7_none_GW	Sla1_Num_cells_GW	Sla1_Num_wells_GW	Sla1_penetrance_GW	Sla1_aggregate_GW	Sla1_decreased patch number_GW	Sla1_depolarized patches_GW	Sla1_increased patch number_GW	Sla1_WT_GW	Sla1_none_GW	Sac6_Num_cells_GW	Sac6_Num_wells_GW	Sac6_penetrance_GW	Sac6_aggregate_GW	Sac6_bright patches_GW	Sac6_decreased patch number_GW	Sac6_depolarized patches_GW	Sac6_WT_GW	Sac6_none_GW
+Processed Data Column Type	gene symbol	gene name	TS mutant description	reagent identifier	imaging temperature for TS strains	number of cells imaged for Vph1 marker	number of replicates for Vph1 marker	penetrance for Vph1 marker	fraction of cells with Vph1 phenotype	fraction of cells with Vph1 phenotype	fraction of cells with Vph1 phenotype	fraction of cells with Vph1 phenotype	fraction of cells with Vph1 phenotype	fraction of cells with Vph1 phenotype	fraction of cells with Vph1 phenotype	fraction of cells with Vph1 phenotype	number of cells imaged for Snf7 marker	number of replicates for Snf7 marker	penetrance for Snf7 marker	fraction of cells with Snf7 phenotype	fraction of cells with Snf7 phenotype	fraction of cells with Snf7 phenotype	fraction of cells with Snf7 phenotype	fraction of cells with Snf7 phenotype	number of cells imaged for Sla1 marker	number of replicates for Sla1 marker	penetrance for Sla1 marker	fraction of cells with Sla1 phenotype	fraction of cells with Sla1 phenotype	fraction of cells with Sla1 phenotype	fraction of cells with Sla1 phenotype	fraction of cells with Sla1 phenotype	fraction of cells with Sla1 phenotype	number of cells imaged for Sac6 marker	number of replicates for Sac6 marker	penetrance for Sac6 marker	fraction of cells with Sac6 phenotype	fraction of cells with Sac6 phenotype	fraction of cells with Sac6 phenotype	fraction of cells with Sac6 phenotype	fraction of cells with Sac6 phenotype	fraction of cells with Sac6 phenotype
+Processed Data Column Annotation Level	strain and experimental condition (temperature for TS strains)																																									
+Processed Data Column Description	gene symbol	gene name	TS mutant description	reagent identifier	imaging temperature for TS strains	number of cells imaged for Vph1 marker	number of replicates for Vph1 marker	penetrance for Vph1 marker	fraction of cells with Vph1 phenotype	fraction of cells with Vph1 phenotype	fraction of cells with Vph1 phenotype	fraction of cells with Vph1 phenotype	fraction of cells with Vph1 phenotype	fraction of cells with Vph1 phenotype	fraction of cells with Vph1 phenotype	fraction of cells with Vph1 phenotype	number of cells imaged for Snf7 marker	number of replicates for Snf7 marker	penetrance for Snf7 marker	fraction of cells with Snf7 phenotype	fraction of cells with Snf7 phenotype	fraction of cells with Snf7 phenotype	fraction of cells with Snf7 phenotype	fraction of cells with Snf7 phenotype	number of cells imaged for Sla1 marker	number of replicates for Sla1 marker	penetrance for Sla1 marker	fraction of cells with Sla1 phenotype	fraction of cells with Sla1 phenotype	fraction of cells with Sla1 phenotype	fraction of cells with Sla1 phenotype	fraction of cells with Sla1 phenotype	fraction of cells with Sla1 phenotype	number of cells imaged for Sac6 marker	number of replicates for Sac6 marker	penetrance for Sac6 marker	fraction of cells with Sac6 phenotype	fraction of cells with Sac6 phenotype	fraction of cells with Sac6 phenotype	fraction of cells with Sac6 phenotype	fraction of cells with Sac6 phenotype	fraction of cells with Sac6 phenotype
+Processed Data Column Link To Library File	strainID and Temp (Temp is relevant for TS strains; RT or 37)																																									
+																																										
+Screen Number	2																																								
+Comment[IDR Screen Name]	idr0078-mattiazziusaj-endocyticcomp/screenB	
+
+
+Screen Sample Type	cell										
+
+
+Screen Description	secondary screens (mini-array)																																									
+Screen Size	Plates: Sac6-yEGFP BR1: 7; Sla1-yEGFP BR1: 7; Snf7-yEGFP BR1: 7; Vph1-yEGFP BR1: 7; Sac6-yEGFP BR2: 9; Sla1-yEGFP BR2: 7; Snf7-yEGFP BR2: 7; Vph1-yEGFP BR2: 7	5D Images: 	Planes:  5	Average Image Dimension (XYZCT): each channel/plane/field is a separate tif xy = 1080x1080	Total Tb: 791 GB	# fill in any values you know																																				
+Screen Example Images																																										
+Screen Imaging Method	spinning disk confocal microscopy																																								
+Screen Imaging Method Term Source REF	Fbbi																																									
+Screen Imaging Method Term Accession	FBbi_00000253																																				
+Screen Technology Type	gene deletion screen																																									
+Screen Technology Type Term Source REF	EFO																																									
+Screen Technology Type Term Accession	EFO_0007552																																									
+Screen Type	secondary screen																																									
+Screen Type Term Source REF	EFO																																									
+Screen Type Term Accession	EFO_0007557																																								
+Screen Comments	Images not included in the downstream analysis are excluded (see column ‘Quality control’ in library file for details).  																																									
+																																										
+# Library section. The library file should be supplied separately and it should contain  the reagents description including, at the absolute minimum: reagent ID, sequences and position in the layout (= plate + position in the plate)																																										
+Library File Name	idr0078-screenB-library.csv																																									
+Library File Format	csv (comma-separated text)																																									
+Library Type	haploid deletion library																																									
+Library Type Term Source REF	EFO																																									
+Library Type Term Accession	EFO_0007561																																									
+Library Manufacturer																																										
+Library Version																																									
+Library Experimental Conditions	mutant strain																																							
+Library Experimental Conditions Term Source REF	EFO																																									
+Library Experimental Conditions Term Accession	EFO_0004006																																									
+Quality Control Description	Blank wells, wells with low cell count were excluded from analysis (see note in Quality control column in the library file).																																									
+																																										
+# Protocols																																										
+Protocol Name	growth protocol	treatment protocol	HCS library protocol	HCS image acquisition and feature extraction protocol	HCS data analysis protocol																																					
+Protocol Type	growth protocol	treatment protocol	HCS library protocol	HCS image acquisition and feature extraction protocol	HCS data analysis protocol																																					
+Protocol Type Term Source REF	EFO	EFO	EFO	EFO	EFO																																					
+Protocol Type Term Accession	EFO_0003789	EFO_0003969	EFO_0007571	EFO_0007572	EFO_0007573																																					
+Protocol Description	Briefly, haploid mutant MATa strains expressing tagged FPs derived from SGA were grown and imaged in low fluorescence synthetic minimal medium64 supplemented with antibiotics and 2% glucose. Nonessential gene deletion mutants were grown and imaged in logarithmic phase at 30°C, and TS mutants of essential genes were first grown to mid-logarithmic phase and imaged at 26°C, and then incubated for three hours at 37°C and imaged at 37°C. Cells were transferred to a Concanavalin A (ConA) coated 384-well PerkinElmer CellCarrier Ultra imaging plate and centrifuged for 45 seconds at 500 rpm before imaging. To aid in cell segmentation, Dextran Alexa Fluor 647 (Molecular Probes) was added to cells in low fluorescence medium to a final concentration of 10 μg/ml before imaging.	For genome wide screens, micrographs were obtained on the Opera (PerkinElmer) automated spinning disk confocal microscope. Three fields with Z-stacks of 5 optical sections with 0.8 μm spacing were collected per well, with each field of view containing 50 - 150 cells. Secondary screens were imaged on an Opera Phenix (PerkinElmer) automated microscope. All imaging was done with a 60x water- immersion objective. Acquisition settings included using a 405/488/561/640 nm primary dichroic mirror. yEGFP was excited using a 488 nm laser, and emission collected through a 520/35 nm filter. tdTomato was excited using a 561 nm laser, and emission collected through a 600/40 nm filter. Dextran Alexa Fluor 647 was excited using a 640 nm laser, and emission collected through a 690/50 nm filter.	See paper Methods section for full description. 	
+																																										
+																																										
+# Phenotypes																																										
+Phenotype Name	Sac6: aggregate	Sac6: bright patches	Sac6: decreased patch number	Sac6: depolarized patches	Sac6: WT	Sla1: aggregate	Sla1: decreased patch number	Sla1: depolarized patches	Sla1: increased patch number	Sla1: WT	Snf7: condensed	Snf7: fragmented	Snf7: membrane	Snf7: WT	Vph1: class E	Vph1: class G	Vph1: enlarged	Vph1: fragmented	Vph1: multilobed	Vph1: V-ATPase defect	Vph1: WT																					
+Phenotype Description	Trained neural network classifier for phenotype classification; phenotype assignment is done at the single-cell level. See Methods section for details																																									
+Phenotype Score Type	automatic																																									
+Phenotype Term Source REF	CMPO																																									
+Phenotype Term Name																																										
+Phenotype Term Accession																																										
+																																										
+# Raw Data Files	folder /raw/secondary (4 subfolders, each contains BR1 and BR2 subfolders)																																									
+Raw Image Data Format	PerkinElmer Phenix tif																																									
+Raw Image Organization	See Screen size/plates for number of plates; 384-well plates; 2 fields per well, stack with 5 planes, reach raw image is separate tif file																																									
+																																										
+# Feature Level Data Files																																										
+Feature Level Data File Name	folder /features/genome-wide																																									
+Feature Level Data File Description	each table has 222 columns: cellID, row, column, and 219 feature columns. Each row represents a single cell																																									
+Feature Level Data File Format	csv (comma-separated text)																																									
+Feature Level Data Column Name	cellID	219 feature columns	row	col																																						
+Feature Level Data Column Description	unique cellID	see paper Methods section for description (CellProfiler features)	plate row	plate column																																						
+																																										
+#  Processed Data Files 																																										
+Processed Data File Name	idr0078_supplemental_screenB.csv																																									
+Processed Data File Format	csv (comma-separated text)																																									
+Processed Data File Description	the file contains for each screened strain the results for penetrance and phenotype fractions for all 4 markers; meant as supplemental attachment (?)																																									
+Processed Data Column Name	ORF	Name	Allele	StrainID	Temp	Vph1_Num_cells_secondary	Vph1_Num_wells_secondary	Vph1_penetrance_secondary	Vph1_class E_secondary	Vph1_class G_secondary	Vph1_enlarged_secondary	Vph1_fragmented_secondary	Vph1_multilobed_secondary	Vph1_V-ATPase defect_secondary	Vph1_WT_secondary	Vph1_none_secondary	Snf7_Num_cells_secondary	Snf7_Num_wells_secondary	Snf7_penetrance_secondary	Snf7_condensed_secondary	Snf7_fragmented_secondary	Snf7_membrane_secondary	Snf7_WT_secondary	Snf7_none_secondary	Sla1_Num_cells_secondary	Sla1_Num_wells_secondary	Sla1_penetrance_secondary	Sla1_aggregate_secondary	Sla1_decreased patch number_secondary	Sla1_depolarized patches_secondary	Sla1_increased patch number_secondary	Sla1_WT_secondary	Sla1_none_secondary	Sac6_Num_cells_secondary	Sac6_Num_wells_secondary	Sac6_penetrance_secondary	Sac6_aggregate_secondary	Sac6_bright patches_secondary	Sac6_decreased patch number_secondary	Sac6_depolarized patches_secondary	Sac6_WT_secondary	Sac6_none_secondary
+Processed Data Column Type	gene symbol	gene name	TS mutant description	reagent identifier	imaging temperature for TS strains	number of cells imaged for Vph1 marker	number of replicates for Vph1 marker	penetrance for Vph1 marker	fraction of cells with Vph1 phenotype	fraction of cells with Vph1 phenotype	fraction of cells with Vph1 phenotype	fraction of cells with Vph1 phenotype	fraction of cells with Vph1 phenotype	fraction of cells with Vph1 phenotype	fraction of cells with Vph1 phenotype	fraction of cells with Vph1 phenotype	number of cells imaged for Snf7 marker	number of replicates for Snf7 marker	penetrance for Snf7 marker	fraction of cells with Snf7 phenotype	fraction of cells with Snf7 phenotype	fraction of cells with Snf7 phenotype	fraction of cells with Snf7 phenotype	fraction of cells with Snf7 phenotype	number of cells imaged for Sla1 marker	number of replicates for Sla1 marker	penetrance for Sla1 marker	fraction of cells with Sla1 phenotype	fraction of cells with Sla1 phenotype	fraction of cells with Sla1 phenotype	fraction of cells with Sla1 phenotype	fraction of cells with Sla1 phenotype	fraction of cells with Sla1 phenotype	number of cells imaged for Sac6 marker	number of replicates for Sac6 marker	penetrance for Sac6 marker	fraction of cells with Sac6 phenotype	fraction of cells with Sac6 phenotype	fraction of cells with Sac6 phenotype	fraction of cells with Sac6 phenotype	fraction of cells with Sac6 phenotype	fraction of cells with Sac6 phenotype
+Processed Data Column Annotation Level	strain and experimental condition (temperature for TS strains)																																									
+Processed Data Column Description	gene symbol	gene name	TS mutant description	reagent identifier	imaging temperature for TS strains	number of cells imaged for Vph1 marker	number of replicates for Vph1 marker	penetrance for Vph1 marker	fraction of cells with Vph1 phenotype	fraction of cells with Vph1 phenotype	fraction of cells with Vph1 phenotype	fraction of cells with Vph1 phenotype	fraction of cells with Vph1 phenotype	fraction of cells with Vph1 phenotype	fraction of cells with Vph1 phenotype	fraction of cells with Vph1 phenotype	number of cells imaged for Snf7 marker	number of replicates for Snf7 marker	penetrance for Snf7 marker	fraction of cells with Snf7 phenotype	fraction of cells with Snf7 phenotype	fraction of cells with Snf7 phenotype	fraction of cells with Snf7 phenotype	fraction of cells with Snf7 phenotype	number of cells imaged for Sla1 marker	number of replicates for Sla1 marker	penetrance for Sla1 marker	fraction of cells with Sla1 phenotype	fraction of cells with Sla1 phenotype	fraction of cells with Sla1 phenotype	fraction of cells with Sla1 phenotype	fraction of cells with Sla1 phenotype	fraction of cells with Sla1 phenotype	number of cells imaged for Sac6 marker	number of replicates for Sac6 marker	penetrance for Sac6 marker	fraction of cells with Sac6 phenotype	fraction of cells with Sac6 phenotype	fraction of cells with Sac6 phenotype	fraction of cells with Sac6 phenotype	fraction of cells with Sac6 phenotype	fraction of cells with Sac6 phenotype
+Processed Data Column Link To Library File	strainID and Temp (Temp is relevant for TS strains; RT or 37)																																									
