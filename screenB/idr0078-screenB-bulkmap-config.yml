@@ -58,7 +58,7 @@ columns:
         - name: Comment [Gene Identifier]
           clientname: Gene Identifier URL
           clientvalue: >
-            http://www.yeastgenome.org/locus/{{ value|urlencode }}/overview
+            https://www.yeastgenome.org/locus/{{ value|urlencode }}
           include: true
         - name: Comment [Gene Symbol]
           clientname: Gene Symbol
