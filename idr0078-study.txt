@@ -28,7 +28,7 @@ Study BioImage Archive Accession
 Study Public Release Date																												
 # Study Publication														
 Study PubMed ID	32064787													
-Study Publication Title	Systematic genetics and single-cell imaging reveal widespread morphological pleiotropy and cell-to-cell																											
+Study Publication Title	Systematic genetics and single-cell imaging reveal widespread morphological pleiotropy and cell-to-cell variability																											
 Study Author List	Mattiazzi Usaj M, Sahin N, Friesen H, Pons C, Usaj M, Paz Masinas M, Shuteriqi E, Shkurin A, Aloy P, Morris Q, Boone C, Andrews BJ													
 Study PMC ID	PMC7025093 													
 Study DOI	https://doi.org/10.15252/msb.20199243																																						
