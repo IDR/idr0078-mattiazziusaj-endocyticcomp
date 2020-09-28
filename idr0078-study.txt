@@ -25,7 +25,7 @@ Study External URL	https://thecellvision.org/endocytosis/
 
 Study BioImage Archive Accession
 						
-Study Public Release Date																												
+Study Public Release Date	2020-09-29																												
 # Study Publication														
 Study PubMed ID	32064787													
 Study Publication Title	Systematic genetics and single-cell imaging reveal widespread morphological pleiotropy and cell-to-cell variability																											
