@@ -40,7 +40,7 @@ Study Person Address	The Donnelly Centre, University of Toronto, 160 College St,
 Study Person ORCID	0000-0001-6427-6493	0000-0002-7389-8478												
 Study Person Roles	submitter	submitter																																				
 # Study License and Data DOI														
-Study License	CC-BY 4.0													
+Study License	CC BY 4.0													
 Study License URL	https://creativecommons.org/licenses/by/4.0/													
 Study Copyright	Mattiazzi Usaj et al													
 Study Data Publisher	University of Dundee													
